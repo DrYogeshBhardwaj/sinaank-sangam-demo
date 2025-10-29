@@ -12,14 +12,22 @@
     "harmony": "Harmony %",
     "generate": "Generate Report",
     "download": "Download HTML",
-    "restart": "Restart",
-    "nameRule": "Only A–Z allowed. Auto-UPPERCASE.",
-    "mobileRule": "Digits only; length as per ISD"
+    "restart": "Restart"
   },
   "relations": [
     "पति-पत्नी",
+    "प्रेमी-प्रेमिका",
+    "मंगेतर",
     "साझेदार",
+    "कर्मचारी-नियोक्ता",
     "मित्र",
+    "भाई-बहन",
+    "माता-पिता",
+    "शिक्षक-छात्र",
+    "पड़ोसी",
+    "गुरु-शिष्य",
+    "ग्राहक-सेवा",
+    "रिश्तेदार",
     "डिफॉल्ट"
   ]
 }

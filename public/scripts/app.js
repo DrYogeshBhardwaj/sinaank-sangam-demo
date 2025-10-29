@@ -1,183 +1,276 @@
-async function j(u){ const r=await fetch(u,{cache:'no-cache'}); if(!r.ok) throw new Error(u); return r.json(); }
-function bul(list){ return (list||[]).map(x=>'– '+x).join('\n'); }
-const DATA={}, L10N={}, COUNTRIES={};
+/* Mobile Sangam — Stable Display (No PDF) */
+const MS = (()=>{
+  const qs=(s)=>document.querySelector(s);
+  const on=(el,ev,fn)=>el&&el.addEventListener(ev,fn);
+  const fetchJSON=async(p)=>{const r=await fetch(p,{cache:'no-store'}); if(!r.ok) throw new Error('Load fail '+p); return r.json();};
+  const digits=(s)=>(s||'').replace(/\D+/g,'');
+  const onlyAZSpace=(s)=>(s||'').replace(/[^A-Za-z ]/g,'').toUpperCase();
+  const clamp=(v,l,h)=>Math.max(l,Math.min(h,v));
+  const reduce19=(n)=>{n=Math.abs(Number(n)||0);while(n>9)n=String(n).split('').reduce((a,d)=>a+Number(d),0);return n===0?9:n;};
+  const mapLetterVal=(ch)=> ch===' ' ? 0 : (((ch.charCodeAt(0)-64-1)%9)+1);
+  const naamankVal=(name)=>{const c=onlyAZSpace(name); return reduce19(c.split('').reduce((a,ch)=>a+mapLetterVal(ch),0));};
+  const yogankVal=(d)=>reduce19((d||'').split('').reduce((a,x)=>a+Number(x),0));
+  const lastNZ=(d)=>{for(let i=(d||'').length-1;i>=0;i--){if(d[i]!=='0')return Number(d[i]);}return 9;};
+  const sanyukt=(m,y)=>Number(`${m}${y}`);
 
-async function loadAllContent(){
-  const [m,p,g,a,r,d,dc,ri] = await Promise.all([
-    j('./core/rashi_sound_map.json'),
-    j('./content/rashi_profiles.json'),
-    j('./content/practical_guidance.json'),
-    j('./content/advice.json'),
-    j('./content/remedies.json'),
-    j('./content/definitions.json'),
-    j('./content/disclaimer.json'),
-    j('./content/relation_intro_dynamic.json'),
-  ]);
-  DATA.rashiMap=m;
-  DATA.rashiProfiles=Object.fromEntries(p.profiles.map(x=>[x.rashi,x]));
-  DATA.guidance=Object.fromEntries(g.mobank.map(x=>[String(x.mobank),x.sections]));
-  DATA.advice=Object.fromEntries(a.mobank.map(x=>[String(x.mobank),x.advice]));
-  DATA.remedies=r;
-  DATA.defs=d.hi;
-  DATA.disc=dc.hi;
-  DATA.relIntro=ri;
-}
-async function loadLocale(lang){ L10N.current=await j(`./languages/${lang}.json`); }
-async function loadCountries(){ Object.assign(COUNTRIES, await j('./config/countries.json')); }
+  const S={lang:'en', relation:'HUSBAND_WIFE', iso2:'IN', ui:null, country:null, advice:null, cIndex:[], showFull:false};
 
-function lastNonZero(msisdn){ for(let i=msisdn.length-1;i>=0;i--){ const c=msisdn[i]; if(/\d/.test(c)&&c!=='0') return Number(c);} return 0; }
-function digitSumToSingle(nstr){ let s=[...nstr].filter(ch=>/\d/.test(ch)).reduce((t,c)=>t+Number(c),0); while(s>9) s=String(s).split('').reduce((t,c)=>t+Number(c),0); return s; }
-function sanitizeNameEN(el){ el.value=el.value.toUpperCase().replace(/[^A-Z .'-]/g,''); }
-function normalizeMobile(msisdn, rule){ if(rule==='strip_non_digits') return (msisdn||'').replace(/\D/g,''); return msisdn; }
-function validateMobile(msisdn, ccode){ const cfg=COUNTRIES.list.find(x=>x.code===ccode); if(!cfg) return {ok:false,msg:'Country not found'}; const norm=normalizeMobile(msisdn,cfg.normalize); const ok=norm.length>=cfg.min && norm.length<=cfg.max; return {ok,norm,cfg}; }
-function nameToRashi(nameHi){ const map=DATA.rashiMap.map; let best=null,bestLen=0; for(const item of map){ for(const pref of item.prefixes){ if(nameHi.startsWith(pref)&&pref.length>bestLen){ best=item.rashi; bestLen=pref.length; } } } if(best){ const lord=DATA.rashiMap.rules.lords[best]; return {rashi:best,lord}; } return {rashi:"मेष",lord:"मंगल"}; }
-const MOBANK_TONE={1:"आरंभ-शक्ति",2:"संतुलन",3:"अभिव्यक्ति",4:"स्थिरता",5:"उत्साह",6:"सहयोग",7:"दीर्घ-दृष्टि",8:"व्यावहारिक-शक्ति",9:"दृष्टि"};
-function bucketKey(score){ for(const b of DATA.relIntro.buckets){ if(score>=b.min&&score<b.max) return b.key; } return DATA.relIntro.buckets.at(-1).key; }
-function relationIntro(relation_hi, score, rashiA, rashiB, mobankA, mobankB){
-  const key=bucketKey(score); const hi=DATA.relIntro.hi; const rel=hi[relation_hi]||hi["डिफॉल्ट"]; let text=rel[key]||Object.values(rel)[0]||"";
-  const elemA=(DATA.rashiProfiles[rashiA]||{}).element||"तत्व"; const elemB=(DATA.rashiProfiles[rashiB]||{}).element||"तत्व";
-  text=text.replaceAll("{SCORE}",String(score)).replaceAll("{RASHI_ELEMENT}",`${elemA}–${elemB}`).replaceAll("{MOBANK_TONE}",`${MOBANK_TONE[mobankA]||""} & ${MOBANK_TONE[mobankB]||""}`);
-  text+=` इस संगम का संकेत ${score}/100 है; ${rashiA}–${rashiB} की संयुक्त तरंगें और Mobank ${mobankA}/${mobankB} की लय साथ मिलकर दिशा तय करती हैं।`; return text;
-}
-function calcBlock(name_en,name_hi, mobile, naamank){
-  const mobank=lastNonZero(mobile); const yogank=digitSumToSingle(mobile); const sanyuktank=`${mobank}${yogank}`; const {rashi,lord}=nameToRashi(name_hi||name_en);
-  const digits=[...mobile].filter(ch=>/\d/.test(ch)).join('+'); const s=[...mobile].filter(ch=>/\d/.test(ch)).reduce((t,c)=>t+Number(c),0);
-  const r1=String(s).split('').join('+'); const s1=String(s).split('').reduce((t,c)=>t+Number(c),0);
-  let yline=`${digits} = ${s} ⇒ ${r1} = ${s1}`; if(s1>9){ const r2=String(s1).split('').join('+'); const s2=String(s1).split('').reduce((t,c)=>t+Number(c),0); yline+=` ⇒ ${r2} = ${s2}`; }
-  return {name_en,name_hi,mobile,naamank:naamank||'—',mobank,yogank,sanyuktank,rashi,lord,yline};
-}
+  const showRestart=(show)=>{ const r=qs('#restartBtn'); if(r){ r.classList.toggle('hidden', !show); } };
+  const lockSelectors=(lock)=>{ ['langSelect','relationSelect','countrySelect'].forEach(id=>{ const el=document.getElementById(id); if(el) el.disabled=!!lock; }); };
+  const lockInputs=(lock)=>{ ['nameA','nameB','mobileA','mobileB','generateBtn'].forEach(id=>{ const el=document.getElementById(id); if(!el) return; if(id==='generateBtn'){ el.disabled=!!lock; el.classList.toggle('opacity-60', !!lock); el.classList.toggle('pointer-events-none', !!lock);} else { el.readOnly=!!lock; el.disabled=!!lock; el.classList.toggle('bg-gray-200', !!lock);} }); };
 
-function applyLocale(){
-  const ui=L10N.current.ui;
-  document.getElementById('belowLang').textContent=ui.belowLang||'';
-  document.getElementById('genBtn').textContent=ui.generate||'Generate';
-  document.getElementById('saveBtn').textContent=ui.download||'Download';
-  document.getElementById('lblRelation').textContent=ui.relation||'Relation';
-  document.getElementById('lblCountry').textContent=ui.country||'Country / ISD';
-  document.getElementById('lblNameAEN').textContent=ui.nameA||'Name (EN)';
-  document.getElementById('lblNameBEN').textContent=ui.nameB||'Name (EN)';
-  document.getElementById('lblNameAHI').textContent=ui.nameHiA||'Name (HI)';
-  document.getElementById('lblNameBHI').textContent=ui.nameHiB||'Name (HI)';
-  document.getElementById('lblMobileA').textContent=ui.mobile||'Mobile';
-  document.getElementById('lblMobileB').textContent=ui.mobile||'Mobile';
-  const relSel=document.getElementById('relation_hi'); relSel.innerHTML=''; (L10N.current.relations||[]).forEach(r=>{ const o=document.createElement('option'); o.textContent=r; relSel.appendChild(o); });
-}
-function fillCountries(){ const sel=document.getElementById('country'); sel.innerHTML=''; COUNTRIES.list.forEach(c=>{ const o=document.createElement('option'); o.value=c.code; o.textContent=`${c.name} (${c.isd})`; sel.appendChild(o); }); sel.value=COUNTRIES.default||COUNTRIES.list[0].code; }
-function lockControls(yes){ ['langPick','relation_hi','country'].forEach(id=>{ const el=document.getElementById(id); if(el) el.disabled=!!yes; }); }
-function checkReady(){ const ccode=document.getElementById('country').value; const aN=document.getElementById('a_name_en').value.trim(); const bN=document.getElementById('b_name_en').value.trim(); const aM=document.getElementById('a_mobile').value.trim(); const bM=document.getElementById('b_mobile').value.trim(); const va=validateMobile(aM,ccode); const vb=validateMobile(bM,ccode); const ok=aN&&bN&&va.ok&&vb.ok; document.getElementById('genBtn').disabled=!ok; }
+  const bindNameGuards=()=>{
+    ['nameA','nameB'].forEach(id=>{
+      const el=document.getElementById(id); if(!el) return;
+      el.setAttribute('autocomplete','off');
+      el.addEventListener('input',()=>{ el.value = onlyAZSpace(el.value); });
+      el.addEventListener('paste',(e)=>{ e.preventDefault(); el.value = onlyAZSpace(e.clipboardData.getData('text')||''); });
+    });
+  };
+  const bindMobileGuards=()=>{
+    ['mobileA','mobileB'].forEach(id=>{
+      const el=document.getElementById(id); if(!el) return;
+      el.setAttribute('inputmode','numeric'); el.setAttribute('autocomplete','off');
+      el.addEventListener('input',()=>{
+        el.value = digits(el.value||'');
+        const max=S.country?.mobile?.maxLen || 15; if(el.value.length>max) el.value = el.value.slice(0,max);
+      });
+      el.addEventListener('paste',(e)=>{ e.preventDefault(); const t=digits(e.clipboardData.getData('text')||''); const max=S.country?.mobile?.maxLen||15; el.value=t.slice(0,max); });
+    });
+  };
 
-function render(){
-  const A=calcBlock(document.getElementById('a_name_en').value.trim(), document.getElementById('a_name_hi').value.trim(), document.getElementById('a_mobile').value.trim(), document.getElementById('a_naamank').value.trim());
-  const B=calcBlock(document.getElementById('b_name_en').value.trim(), document.getElementById('b_name_hi').value.trim(), document.getElementById('b_mobile').value.trim(), document.getElementById('b_naamank').value.trim());
-  const relation_hi=document.getElementById('relation_hi').value; const harmony=Number(document.getElementById('harmony').value||78); const intro=relationIntro(relation_hi,harmony,A.rashi,B.rashi,A.mobank,B.mobank);
-  const GP=DATA.guidance, ADV=DATA.advice, RP=DATA.rashiProfiles;
-  const workA=bul((GP[String(A.mobank)]?.Work?.hi)||[]), relA=bul((GP[String(A.mobank)]?.Relations?.hi)||[]), finA=bul((GP[String(A.mobank)]?.Finance?.hi)||[]), wellA=bul((GP[String(A.mobank)]?.Wellbeing?.hi)||[]);
-  const workB=bul((GP[String(B.mobank)]?.Work?.hi)||[]), relB=bul((GP[String(B.mobank)]?.Relations?.hi)||[]), finB=bul((GP[String(B.mobank)]?.Finance?.hi)||[]), wellB=bul((GP[String(B.mobank)]?.Wellbeing?.hi)||[]);
-  const smallA=(ADV[String(A.mobank)]?.small?.hi)||'', bigA=(ADV[String(A.mobank)]?.big?.hi)||''; const smallB=(ADV[String(B.mobank)]?.small?.hi)||'', bigB=(ADV[String(B.mobank)]?.big?.hi)||'';
-  const defs=DATA.defs, remedies=DATA.remedies, disc=DATA.disc;
-  const html=`
-<h3>🪔 Mobile Sangam (Dual Report)</h3>
-<div class="small">Relation: ${relation_hi} • Harmony: ${harmony}/100</div>
-<div class="card"><b>0) परिभाषाएँ व गणना-विधि</b>
-<pre>📐 ${defs.headline?.replace?.('📐 ','')||''}
+  const syncMobileAttrs=()=>{
+    const min=S.country?.mobile?.minLen||10, max=S.country?.mobile?.maxLen||10;
+    ['mobileA','mobileB'].forEach(id=>{ const el=document.getElementById(id); if(!el) return; el.setAttribute('maxlength', String(max)); el.setAttribute('placeholder', `Enter ${min}-${max} digits`); });
+  };
 
-${defs.mobank}
-${defs.yogank}
-${defs.naamank}
-${defs.sanyuktank}
-</pre></div>
-<div class="card"><b>1) आपकी वास्तविक गणनाएँ (दोनों)</b>
-<div class="grid">
-  <div><h4>व्यक्ति A: ${A.name_en} / ${A.name_hi} • ${A.mobile}</h4><pre>
-• Mobank: अंतिम non-zero ⇒ <b>${A.mobank}</b>
-• Yogank: ${A.yline} ⇒ <b>${A.yogank}</b>
-• Naamank: <b>${A.naamank}</b>
-• Sanyuktank: ${A.mobank}+${A.yogank} ⇒ <b>${A.sanyuktank}</b></pre></div>
-  <div><h4>व्यक्ति B: ${B.name_en} / ${B.name_hi} • ${B.mobile}</h4><pre>
-• Mobank: अंतिम non-zero ⇒ <b>${B.mobank}</b>
-• Yogank: ${B.yline} ⇒ <b>${B.yogank}</b>
-• Naamank: <b>${B.naamank}</b>
-• Sanyuktank: ${B.mobank}+${B.yogank} ⇒ <b>${B.sanyuktank}</b></pre></div>
-</div>
-</div>
-<div class="card"><b>2) गणना-सार (संगम)</b>
-<pre>• A: Mobank ${A.mobank}, Yogank ${A.yogank}, Naamank ${A.naamank}, Sanyuktank ${A.sanyuktank} | Rashi ${A.rashi} (${A.lord})
-• B: Mobank ${B.mobank}, Yogank ${B.yogank}, Naamank ${B.naamank}, Sanyuktank ${B.sanyuktank} | Rashi ${B.rashi} (${B.lord})
-• Harmony: ${harmony}/100</pre></div>
-<div class="card"><b>3) संबंध की ऊर्जा (डायनेमिक इंट्रो)</b><pre>${intro}</pre></div>
-<div class="card"><b>4) राशि–स्वामी विवरण (A & B)</b>
-<div class="grid">
-  <div><h4>व्यक्ति A — ${A.rashi}</h4><pre>
-स्वामी: ${A.lord} | तत्व: ${RP[A.rashi]?.element||''}
-प्रमुख गुण: ${(RP[A.rashi]?.traits_hi||[]).join('、')}
+  const populateCountries=()=>{
+    const sel=document.getElementById('countrySelect'); if(!sel) return;
+    const keep = sel.value || S.iso2; sel.innerHTML='';
+    (S.cIndex||[]).forEach(it=>{ const o=document.createElement('option'); o.value=it.code; o.textContent=it.label; sel.appendChild(o); });
+    sel.value = (S.cIndex.find(x=>x.code===keep)?.code) || (S.cIndex[0]?.code||'IN'); S.iso2 = sel.value;
+  };
 
-${RP[A.rashi]?.profile_hi||''}</pre></div>
-  <div><h4>व्यक्ति B — ${B.rashi}</h4><pre>
-स्वामी: ${B.lord} | तत्व: ${RP[B.rashi]?.element||''}
-प्रमुख गुण: ${(RP[B.rashi]?.traits_hi||[]).join('、')}
+  const bindUI=()=>{
+    const ui=S.ui||{};
+    qs('#uiAppTitle')&&(qs('#uiAppTitle').textContent=(ui.headings?.appTitle||'Mobile Sangam'));
+    qs('#uiSubtitle')&&(qs('#uiSubtitle').textContent=(S.ui?.titles?.subTitle||'Mobank • Yogank • Sanyuktank'));
+    const relSel=document.getElementById('relationSelect');
+    if(relSel && (ui.relations||ui.ui?.relations)){
+      const relMap=ui.relations||ui.ui?.relations||{}; const cur=relSel.value||S.relation;
+      relSel.innerHTML='';
+      const ph=document.createElement('option'); ph.value=''; ph.textContent=S.lang==='en'?'-- Select Relation --':'— संबंध चुनें —'; relSel.appendChild(ph);
+      Object.keys(relMap).forEach(k=>{ const o=document.createElement('option'); o.value=k; o.textContent=relMap[k]; relSel.appendChild(o); });
+      relSel.value=cur;
+    }
+    const a=document.getElementById('isdBadgeA'), b=document.getElementById('isdBadgeB');
+    if(a) a.textContent = S.country?.isd||'';
+    if(b) b.textContent = S.country?.isd||'';
+  };
 
-${RP[B.rashi]?.profile_hi||''}</pre></div>
-</div>
-</div>
-<div class="card"><b>5) Practical Guidance</b>
-<div class="grid">
-  <div><h4>A — Mobank ${A.mobank}</h4><pre><b>Work</b>
-${workA}
+  const warn=(t)=>{ const w=qs('#warnings'); if(w){ w.textContent=t||''; w.classList.toggle('hidden', !t);} };
 
-<b>Relations</b>
-${relA}
+  const loadAll=async()=>{
+    const lang=document.getElementById('langSelect')?.value||S.lang;
+    const relation=document.getElementById('relationSelect')?.value||S.relation;
+    const iso2=document.getElementById('countrySelect')?.value||S.iso2;
+    S.lang=lang; S.relation=relation; S.iso2=iso2;
+    const bust=`?_=${Date.now()}`;
+    const ui=await fetchJSON(`config/languages/${lang}.json${bust}`);
+    const country=await fetchJSON(`config/countries/${S.iso2}.json${bust}`);
+    let adv;
+    try{ adv=await fetchJSON(`config/advice/${lang}/${relation}.json${bust}`); }
+    catch(_){ adv={ small:(S.lang==='en'?'Balanced outlook — keep communicating.':'सामान्य संतुलन — संवाद रखें।'), big:(S.lang==='en'?'Minor differences may arise; patience and clarity build harmony.':'कुछ बातों में मतभेद सम्भव हैं; धैर्य रखें।'), remedy:(S.lang==='en'?'Meditate or pray together once a week.':'सप्ताह में एक बार साथ प्रार्थना करें।') }; }
+    S.ui = ui?.ui ? { ...ui.ui, titles: ui.titles, relations: ui.relations||ui.ui?.relations } : ui;
+    S.country=country; S.advice=adv;
+    bindUI(); syncMobileAttrs();
+  };
 
-<b>Finance</b>
-${finA}
+  const calcPair=({nameA,nameB,mA,mB})=>{
+    const A={ naamank:naamankVal(nameA), yogank:yogankVal(mA), mobank:lastNZ(mA) };
+    const B={ naamank:naamankVal(nameB), yogank:yogankVal(mB), mobank:lastNZ(mB) };
+    let score=100; score-=Math.abs(A.naamank-B.naamank)*8; score-=Math.abs(A.yogank-B.yogank)*5;
+    score = clamp(Math.round(score),0,88);
+    return {A,B, sanyuktankA:sanyukt(A.mobank,A.yogank), sanyuktankB:sanyukt(B.mobank,B.yogank), harmonyScore:score, naamankDiff:Math.abs(A.naamank-B.naamank), yogankDiff:Math.abs(A.yogank-B.yogank)};
+  };
 
-<b>Wellbeing</b>
-${wellA}</pre></div>
-  <div><h4>B — Mobank ${B.mobank}</h4><pre><b>Work</b>
-${workB}
+  const ring=(score)=>{ const pct=clamp(score,0,100); const ang=(pct/100)*180, r=64,cx=80,cy=80; const ex=cx+r*Math.cos(Math.PI-(ang*Math.PI/180)); const ey=cy-r*Math.sin(Math.PI-(ang*Math.PI/180)); return `<svg width="160" height="100" viewBox="0 0 160 100"><path d="M ${cx-r} ${cy} A ${r} ${r} 0 1 1 ${cx+r} ${cy}" fill="none" stroke-width="10" stroke="#eee"></path><path d="M ${cx-r} ${cy} A ${r} ${r} 0 0 1 ${ex} ${ey}" fill="none" stroke-width="10" stroke="#3b82f6" stroke-linecap="round"></path><text x="80" y="70" text-anchor="middle" font-size="20" font-weight="700">${pct}</text></svg>`; };
 
-<b>Relations</b>
-${relB}
+  const helpLines=(lang)=>{
+    if(lang==='hi'){
+      return [
+        '<strong>• मोबांक</strong> = मोबाइल नंबर का आख़िरी non‑zero अंक (0 मान्य नहीं).',
+        '<strong>• योगांक</strong> = मोबाइल के सभी अंकों का योग → 1–9 में संक्षेप.',
+        '<strong>• नामांक</strong> = नाम (A–Z) के 1–9 चक्र का योग → 1–9 में संक्षेप.',
+        '<strong>• संयुक्‍तांक</strong> = मोबांक और योगांक का <u>संगलन</u> (जोड़ नहीं; जैसे 5 व 3 ⇒ 53).'
+      ];
+    }
+    return [
+      '<strong>• Mobank</strong> = last non‑zero digit of the mobile (0 ignored).',
+      '<strong>• Yogank</strong> = sum of all digits → reduced to 1–9.',
+      '<strong>• Naamank</strong> = letter values (A–Z cycle 1–9) → reduced to 1–9.',
+      '<strong>• Sanyuktank</strong> = <u>concatenation</u> of Mobank & Yogank (not addition; e.g., 5 & 3 ⇒ 53).'
+    ];
+  };
 
-<b>Finance</b>
-${finB}
+  const derivationBlock=(label, name, mobile)=>{
+    const letters = onlyAZSpace(name).replace(/\s+/g,'').split('');
+    const nums    = letters.map(mapLetterVal);
+    const sum     = nums.reduce((a,b)=>a+b,0);
+    const nred    = reduce19(sum);
+    const digs    = digits(mobile).split('').map(x=>Number(x));
+    const ysum    = digs.reduce((a,b)=>a+b,0);
+    const yred    = reduce19(ysum);
+    const j = (arr,sep='+')=>arr.join(` ${sep} `);
+    return `<div class="rounded p-3 bg-gray-50">
+      <div class="font-semibold mb-1">${label}</div>
+      <div class="text-sm"><em>${name}</em></div>
+      <div class="text-xs mt-1">• ${j(letters,'+')}</div>
+      <div class="text-xs">= ${j(nums,'+')} = <strong>${sum}</strong> ⇒ <strong>${nred}</strong></div>
+      <div class="text-xs mt-2"><em>${mobile}</em></div>
+      <div class="text-xs">• ${j(digs,'+')}</div>
+      <div class="text-xs">= <strong>${ysum}</strong> ⇒ <strong>${yred}</strong></div>
+    </div>`;
+  };
 
-<b>Wellbeing</b>
-${wellB}</pre></div>
-</div>
-</div>
-<div class="card"><b>6) Sinaank Advice</b>
-<div class="grid">
-  <div><h4>A</h4><pre><b>Small (7 days)</b>
-${smallA}
+  const calcTable=(c)=>{
+    const nameA=(qs('#nameA')?.value||'A').trim().toUpperCase();
+    const nameB=(qs('#nameB')?.value||'B').trim().toUpperCase();
+    const mobA=(qs('#mobileA')?.value||'').trim();
+    const mobB=(qs('#mobileB')?.value||'').trim();
+    const lines = helpLines(S.lang).map(t=>`<div class="text-xs">${t}</div>`).join('');
+    return `<div class="p-3 rounded border mt-3">
+      <div class="font-semibold mb-2">${S.lang==='hi'?'गणनाएँ':'Calculations'}</div>
+      <div class="mb-2 pl-1 space-y-0.5">${lines}</div>
+      <div class="grid md:grid-cols-2 gap-3">
+        ${derivationBlock(S.lang==='hi'?'व्यक्ति A':'Person A', nameA, mobA)}
+        ${derivationBlock(S.lang==='hi'?'व्यक्ति B':'Person B', nameB, mobB)}
+      </div>
+      <div class="mt-3 grid md:grid-cols-2 gap-3">
+        <div class="rounded p-2 border">
+          <div class="font-semibold mb-1">${S.lang==='hi'?'परिणाम (A)':'Computed (A)'}</div>
+          <div>Mobank: <strong>${c.A.mobank}</strong></div>
+          <div>Yogank: <strong>${c.A.yogank}</strong></div>
+          <div>Naamank: <strong>${c.A.naamank}</strong></div>
+          <div>Sanyuktank: <strong>${c.sanyuktankA}</strong></div>
+        </div>
+        <div class="rounded p-2 border">
+          <div class="font-semibold mb-1">${S.lang==='hi'?'परिणाम (B)':'Computed (B)'}</div>
+          <div>Mobank: <strong>${c.B.mobank}</strong></div>
+          <div>Yogank: <strong>${c.B.yogank}</strong></div>
+          <div>Naamank: <strong>${c.B.naamank}</strong></div>
+          <div>Sanyuktank: <strong>${c.sanyuktankB}</strong></div>
+        </div>
+      </div>
+    </div>`;
+  };
 
-<b>Big (4–6 weeks)</b>
-${bigA}</pre></div>
-  <div><h4>B</h4><pre><b>Small (7 days)</b>
-${smallB}
+  const render=(calc,adv,showFull)=>{
+    const el=qs('#reportContainer'); if(!el) return;
+    const bigBlock = showFull ? `
+      <div class="p-3 rounded border mb-3">
+        <div class="font-semibold mb-2">${S.lang==='hi'?'विस्तृत सलाह':'Big Advice'}</div>
+        <div>${adv.big||''}</div>
+      </div>
+      <div class="p-3 rounded border mb-3">
+        <div class="font-semibold mb-2">${S.lang==='hi'?'उपाय':'Remedies'}</div>
+        <div>${adv.remedy||''}</div>
+      </div>
+      ${calcTable(calc)}`
+      : `<div class="text-center mt-3">
+          <button id="bigBtn" class="bg-indigo-500 hover:bg-indigo-400 text-white font-semibold px-4 py-2 rounded-lg shadow">
+            ${(S.ui&&S.ui.buttons&&S.ui.buttons.showBig) || (S.lang==='hi'?'बड़ा परिणाम दिखाएँ':'Show Big Result')}
+          </button>
+        </div>`;
 
-<b>Big (4–6 weeks)</b>
-${bigB}</pre></div>
-</div>
-</div>
-<div class="card"><b>7) उपाय — Simple (साझा)</b><pre>${(remedies.simple.hi||[]).map(x=>'– '+x).join('\n')}</pre></div>
-<div class="card"><b>8) Sinaank Digital Remedies (साझा)</b><pre><b>${remedies.digital.hi.headline}</b>
+    el.innerHTML=`<div class="ms-report p-4 rounded-xl shadow bg-white text-black">
+      <div class="grid md:grid-cols-2 gap-4 my-2">
+        <div class="p-3 rounded border">
+          <div class="font-semibold mb-1">${S.lang==='hi'?'व्यक्ति A':'Person A'}</div>
+          <div>Mobank: <strong>${calc.A.mobank}</strong></div>
+          <div>Yogank: <strong>${calc.A.yogank}</strong></div>
+          <div>Naamank: <strong>${calc.A.naamank}</strong></div>
+          <div>Sanyuktank: <strong>${calc.sanyuktankA}</strong></div>
+        </div>
+        <div class="p-3 rounded border">
+          <div class="font-semibold mb-1">${S.lang==='hi'?'व्यक्ति B':'Person B'}</div>
+          <div>Mobank: <strong>${calc.B.mobank}</strong></div>
+          <div>Yogank: <strong>${calc.B.yogank}</strong></div>
+          <div>Naamank: <strong>${calc.B.naamank}</strong></div>
+          <div>Sanyuktank: <strong>${calc.sanyuktankB}</strong></div>
+        </div>
+      </div>
+      <div class="my-3 flex flex-col items-center">${ring(calc.harmonyScore)}<div class="text-center text-sm mt-1">${S.lang==='hi'?'हार्मनी स्कोर':'Harmony Score'}</div></div>
+      <div class="p-3 rounded border mb-3">
+        <div class="font-semibold mb-2">${S.lang==='hi'?'सार सलाह':'Small Advice'}</div>
+        <div>${adv.small||''}</div>
+      </div>
+      ${bigBlock}
+      <div class="mt-6 pt-3 border-t text-center text-xs opacity-80">Dr. Yogesh Bhardwaj — Astro Scientist • www.sinaank.com • Decode Your Destiny Digitally.</div>
+    </div>`;
+  };
 
-${(remedies.digital.hi.bullets||[]).map(x=>'• '+x).join('\n')}
+  const start=async()=>{
+    await loadCountriesIndex(); await loadAll(); S.showFull=false;
+    document.getElementById('inputSection')?.classList.remove('hidden');
+    lockSelectors(true);
+    showRestart(true);
+  };
 
-${remedies.digital.hi.cta}</pre></div>
-<div class="card"><b>${disc.headline}</b><pre>${(disc.text||[]).map(x=>'• '+x).join('\n')}
+  const generate=()=>{
+    const nA=onlyAZSpace(qs('#nameA')?.value||''), nB=onlyAZSpace(qs('#nameB')?.value||'');
+    const mA=digits(qs('#mobileA')?.value||'');
+    const mB=digits(qs('#mobileB')?.value||'');
+    if(!nA.trim()||!nB.trim()) return warn(S.lang==='hi'?'वैध नाम लिखें (A–Z, space)':'Enter valid names (A–Z, spaces)');
+    const min=S.country?.mobile?.minLen||10, max=S.country?.mobile?.maxLen||10;
+    if(!(mA.length>=min && mA.length<=max) || !(mB.length>=min && mB.length<=max)) return warn(S.lang==='hi'?'चयनित देश के अनुसार मोबाइल अमान्य':'Invalid mobile number for selected country');
+    if(mA===mB) return warn(S.lang==='hi'?'दोनों मोबाइल एक समान नहीं हो सकते।':'Both mobiles cannot be the same.');
+    warn('');
+    const calc=calcPair({nameA:nA,nameB:nB,mA,mB}); S.showFull=false; render(calc,S.advice,S.showFull);
+    document.getElementById('inputSection')?.classList.remove('hidden');
+    lockInputs(true);
+  };
 
-➡ नोट: यह विश्लेषण ‘डिजिटल दिशा’ देने के लिए है; किसी प्रकार की भविष्यवाणी नहीं।</pre></div>
-`; const box=document.getElementById('report'); box.style.display='block'; box.innerHTML=html;
-}
-function downloadHTML(){ const src=document.getElementById('report').innerHTML; const html=`<!DOCTYPE html><meta charset="utf-8"><title>Sinaank Report</title><body style="font-family:Arial,'Noto Sans Devanagari',sans-serif;line-height:1.6;max-width:1000px;margin:auto;padding:16px">${src}</body>`; const blob=new Blob([html],{type:'text/html'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='sinaank_sangam_report.html'; a.click(); URL.revokeObjectURL(a.href); }
-function validateConnections(){ ['a_name_en','b_name_en','a_mobile','b_mobile','langPick','relation_hi','country','harmony'].forEach(id=>document.getElementById(id)?.addEventListener('input', checkReady)); }
-function applyNameRules(){ ['a_name_en','b_name_en'].forEach(id=>document.getElementById(id).addEventListener('input', e=>sanitizeNameEN(e.target))); }
+  const restart=()=>{
+    S.showFull=false;
+    lockSelectors(false); lockInputs(false);
+    showRestart(false);
+    ['#nameA','#nameB','#mobileA','#mobileB'].forEach(i=>{const e=qs(i); if(e) e.value='';});
+    const cont=qs('#reportContainer'); if(cont) cont.innerHTML='';
+    warn('');
+  };
 
-window.addEventListener('DOMContentLoaded', async ()=>{
-  try{ await Promise.all([loadAllContent(), loadLocale('en'), loadCountries()]); applyLocale(); fillCountries(); }catch(e){ alert('Init error: '+(e.message||e)); }
-  validateConnections(); applyNameRules(); checkReady();
-  document.getElementById('genBtn').addEventListener('click', ()=>{ lockControls(true); render(); });
-  document.getElementById('saveBtn').addEventListener('click', downloadHTML);
-  document.getElementById('restartBtn').addEventListener('click', ()=>{ lockControls(false); document.getElementById('report').style.display='none'; });
-});
+  document.addEventListener('click',(e)=>{
+    const btn = e.target.closest && e.target.closest('button');
+    const id = btn && btn.id;
+    if(id==='bigBtn'){
+      S.showFull=true;
+      const nA=onlyAZSpace(qs('#nameA')?.value||''), nB=onlyAZSpace(qs('#nameB')?.value||'');
+      const mA=digits(qs('#mobileA')?.value||''), mB=digits(qs('#mobileB')?.value||'');
+      const calc=calcPair({nameA:nA,nameB:nB,mA,mB});
+      render(calc,S.advice,true);
+    }
+  });
+
+  const loadCountriesIndex=async()=>{
+    try{ S.cIndex = await fetchJSON(`config/countries/_index.json?_=${Date.now()}`); }
+    catch(e){ S.cIndex=[{code:'IN',label:'India (+91)'},{code:'US',label:'USA (+1)'}]; }
+    populateCountries();
+  };
+
+  document.addEventListener('DOMContentLoaded',async()=>{
+    try{ S.cIndex = await fetchJSON(`config/countries/_index.json?_=${Date.now()}`);}catch(e){ S.cIndex=[{code:'IN',label:'India (+91)'},{code:'US',label:'USA (+1)'}]; }
+    populateCountries();
+    await loadAll();
+    bindNameGuards();
+    bindMobileGuards();
+    showRestart(false);
+    on(qs('#startBtn'),'click',start);
+    on(qs('#generateBtn'),'click',generate);
+    on(qs('#restartBtn'),'click',restart);
+    on(qs('#countrySelect'),'change', async (e)=>{ S.iso2=e.target.value; await loadAll(); });
+    on(qs('#relationSelect'),'change', async (e)=>{ S.relation=e.target.value; await loadAll(); });
+    on(qs('#langSelect'),'change', async (e)=>{ S.lang=e.target.value; await loadAll(); });
+  });
+  return { state:S };
+})();
