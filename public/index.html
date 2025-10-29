@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Sinaank — Mobile Sangam (Generator)</title>
   <style>
-    body{font-family:Arial,'Noto Sans Devanagari',sans-serif;line-height:1.6;max-width:1000px;margin:auto;padding:16px}
+    :root { --maxw: 1000px; }
+    body{font-family:Arial,'Noto Sans Devanagari',sans-serif;line-height:1.6;max-width:var(--maxw);margin:auto;padding:16px}
+    .brand{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:8px}
+    .brand img.logo{display:block;height:120px; max-width:90%; object-fit:contain}
     .card{background:#f7f7f7;border-radius:12px;padding:14px;margin:12px 0}
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     label{font-weight:600}
@@ -13,13 +16,15 @@
     button{cursor:pointer}
     pre{white-space:pre-wrap;word-break:break-word;background:#111;color:#eee;padding:12px;border-radius:8px}
     .small{color:#666;font-size:12px}
+    @media (max-width:768px){ .grid{grid-template-columns:1fr} .brand img.logo{height:96px} }
   </style>
 </head>
 <body>
-<img src="./logo.png" alt="Sinaank Logo" style="height:70px;margin-bottom:10px;" />
-
-  <h2>🪔 SINAANK — Mobile Sangam (Generator)</h2>
-  <div class="small">Fill details → Generate → नीचे विस्तृत रिपोर्ट दिखेगी</div>
+  <div class="brand">
+    <img class="logo" src="./logo.png" alt="Sinaank Logo" />
+    <h2>🪔 SINAANK — Mobile Sangam (Generator)</h2>
+    <div class="small">Fill details → Generate → नीचे विस्तृत रिपोर्ट दिखेगी</div>
+  </div>
 
   <div class="card">
     <div class="grid">
@@ -75,6 +80,6 @@
     Footer: Dr. Yogesh Bhardwaj — Astro Scientist • www.sinaank.com • Decode Your Destiny Digitally.
   </div>
 
-  <script src="./scripts/app.js"></script>
+  <script src="./scripts/app.js?v=3"></script>
 </body>
 </html>

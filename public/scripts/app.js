@@ -1,30 +1,66 @@
-// --- Load JSON helpers ---
-async function j(url){ const r = await fetch(url); if(!r.ok) throw new Error(url); return r.json(); }
-const DATA = {};
-async function loadAll(){
-const base = '../';   // नया base
-const paths = {
-  rashiMap:  base + 'core/rashi_sound_map.json',
-    rashiProf: base + '../content/rashi_profiles.json',
-    guidance:  base + '../content/practical_guidance.json',
-    advice:    base + '../content/advice.json',
-    remedies:  base + '../content/remedies.json',
-    defs:      base + '../content/definitions.json',
-    disc:      base + '../content/disclaimer.json',
-    relIntro:  base + '../content/relation_intro_dynamic.json',
-  };
-  const [m,p,g,a,r,d,dc,ri] = await Promise.all(Object.values(paths).map(j));
-  DATA.rashiMap = m;
-  DATA.rashiProfiles = Object.fromEntries(p.profiles.map(x=>[x.rashi,x]));
-  DATA.guidance = Object.fromEntries(g.mobank.map(x=>[String(x.mobank),x.sections]));
-  DATA.advice   = Object.fromEntries(a.mobank.map(x=>[String(x.mobank),x.advice]));
-  DATA.remedies = r;
-  DATA.defs = d.hi;
-  DATA.disc = dc.hi;
-  DATA.relIntro = ri;
+// ------- Robust fetch with fallback paths -------
+async function fetchWithFallback(relPaths){
+  const tries = Array.isArray(relPaths) ? relPaths : [relPaths];
+  let lastErr;
+  for(const p of tries){
+    try{
+      const res = await fetch(p, {cache:'no-cache'});
+      if(res.ok) return res.json();
+      lastErr = new Error(`${p} → ${res.status}`);
+    }catch(e){ lastErr = e; }
+  }
+  throw lastErr || new Error('load failed');
 }
 
-// --- Core calc helpers ---
+// Build a list of safe alternatives for a given file under /public
+function altPaths(file){
+  // scripts/app.js is at /public/scripts/, so typical relative is ../<dir>/<file>
+  return [
+    `../${file}`,     // ../core/.. or ../content/..
+    `./${file}`,      // ./core/.. (if script is moved later)
+    `/${file}`,       // absolute from site root
+    `${location.origin}/${file}` // fully absolute
+  ];
+}
+
+const DATA = {};
+async function loadAll(){
+  const files = {
+    rashiMap:  'core/rashi_sound_map.json',
+    rashiProf: 'content/rashi_profiles.json',
+    guidance:  'content/practical_guidance.json',
+    advice:    'content/advice.json',
+    remedies:  'content/remedies.json',
+    defs:      'content/definitions.json',
+    disc:      'content/disclaimer.json',
+    relIntro:  'content/relation_intro_dynamic.json',
+  };
+  try{
+    const [m,p,g,a,r,d,dc,ri] = await Promise.all([
+      fetchWithFallback(altPaths(files.rashiMap)),
+      fetchWithFallback(altPaths(files.rashiProf)),
+      fetchWithFallback(altPaths(files.guidance)),
+      fetchWithFallback(altPaths(files.advice)),
+      fetchWithFallback(altPaths(files.remedies)),
+      fetchWithFallback(altPaths(files.defs)),
+      fetchWithFallback(altPaths(files.disc)),
+      fetchWithFallback(altPaths(files.relIntro)),
+    ]);
+    DATA.rashiMap = m;
+    DATA.rashiProfiles = Object.fromEntries(p.profiles.map(x=>[x.rashi,x]));
+    DATA.guidance = Object.fromEntries(g.mobank.map(x=>[String(x.mobank),x.sections]));
+    DATA.advice   = Object.fromEntries(a.mobank.map(x=>[String(x.mobank),x.advice]));
+    DATA.remedies = r;
+    DATA.defs = d.hi;
+    DATA.disc = dc.hi;
+    DATA.relIntro = ri;
+  }catch(e){
+    alert('Data load error: '+(e.message||e));
+    throw e;
+  }
+}
+
+// ------- Core calc helpers -------
 function lastNonZero(msisdn){
   for(let i=msisdn.length-1;i>=0;i--){ const c=msisdn[i]; if(/\d/.test(c) && c!=='0') return Number(c); }
   return 0;
@@ -65,7 +101,7 @@ function relationIntro(relation_hi, score, rashiA, rashiB, mobankA, mobankB){
   return text;
 }
 
-// --- Render ---
+// ------- Render -------
 function bul(list){ return list.map(x=>`– ${x}`).join('\n'); }
 function calcBlock(name_en,name_hi,mobile,naamank){
   const mobank = lastNonZero(mobile);
@@ -99,7 +135,6 @@ function render(){
   const harmony = Number(document.getElementById('harmony').value || 78);
   const intro = relationIntro(relation_hi, harmony, A.rashi, B.rashi, A.mobank, B.mobank);
 
-  // Guidance & Advice
   const GP = DATA.guidance, ADV = DATA.advice, RP = DATA.rashiProfiles;
   const workA = bul((GP[String(A.mobank)]?.Work?.hi)||[]);
   const relA  = bul((GP[String(A.mobank)]?.Relations?.hi)||[]);
@@ -123,7 +158,7 @@ function render(){
 <div class="small">Relation: ${relation_hi} • Harmony: ${harmony}/100</div>
 
 <div class="card"><b>0) परिभाषाएँ व गणना-विधि</b>
-<pre>📐 ${defs.headline.replace('📐 ','')}
+<pre>📐 ${defs.headline?.replace?.('📐 ','') || ''}
 
 ${defs.mobank}
 ${defs.yogank}
@@ -223,7 +258,6 @@ ${remedies.digital.hi.cta}</pre></div>
 
 ➡ नोट: यह विश्लेषण ‘डिजिटल दिशा’ देने के लिए है; किसी प्रकार की भविष्यवाणी नहीं।</pre></div>
 `;
-
   const box = document.getElementById('report');
   box.style.display='block';
   box.innerHTML = html;
@@ -240,9 +274,9 @@ function downloadHTML(){
   URL.revokeObjectURL(a.href);
 }
 
-// --- Init ---
+// ------- Init -------
 window.addEventListener('DOMContentLoaded', async ()=>{
-  try{ await loadAll(); }catch(e){ alert('Data load error: '+e.message); }
+  try{ await loadAll(); }catch(e){ /* alert already shown */ }
   document.getElementById('genBtn').addEventListener('click', render);
   document.getElementById('saveBtn').addEventListener('click', downloadHTML);
 });
