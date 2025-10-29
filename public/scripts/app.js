@@ -2,9 +2,9 @@
 async function j(url){ const r = await fetch(url); if(!r.ok) throw new Error(url); return r.json(); }
 const DATA = {};
 async function loadAll(){
-  const base = '';
-  const paths = {
-    rashiMap:  base + '../core/rashi_sound_map.json',
+const base = '../';   // नया base
+const paths = {
+  rashiMap:  base + 'core/rashi_sound_map.json',
     rashiProf: base + '../content/rashi_profiles.json',
     guidance:  base + '../content/practical_guidance.json',
     advice:    base + '../content/advice.json',
