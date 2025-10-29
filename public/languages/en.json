@@ -1,10 +1,25 @@
 {
   "ui": {
     "languageTitle": "English",
-    "generate": "Generate"
+    "belowLang": "Select language, relation, and ISD to begin",
+    "nameA": "Name (EN)",
+    "nameB": "Name (EN)",
+    "nameHiA": "Name (HI)",
+    "nameHiB": "Name (HI)",
+    "mobile": "Mobile",
+    "relation": "Relation",
+    "country": "Country / ISD",
+    "harmony": "Harmony %",
+    "generate": "Generate Report",
+    "download": "Download HTML",
+    "restart": "Restart",
+    "nameRule": "Only A–Z allowed. Auto-UPPERCASE.",
+    "mobileRule": "Digits only; length as per ISD"
   },
   "relations": [
     "पति-पत्नी",
-    "मित्र"
+    "साझेदार",
+    "मित्र",
+    "डिफॉल्ट"
   ]
 }

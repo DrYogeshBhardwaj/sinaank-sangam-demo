@@ -4,7 +4,26 @@
     {
       "code": "IN",
       "name": "India",
-      "isd": "+91"
+      "isd": "+91",
+      "min": 10,
+      "max": 10,
+      "normalize": "strip_non_digits"
+    },
+    {
+      "code": "US",
+      "name": "United States",
+      "isd": "+1",
+      "min": 10,
+      "max": 10,
+      "normalize": "strip_non_digits"
+    },
+    {
+      "code": "AE",
+      "name": "UAE",
+      "isd": "+971",
+      "min": 9,
+      "max": 9,
+      "normalize": "strip_non_digits"
     }
   ]
 }

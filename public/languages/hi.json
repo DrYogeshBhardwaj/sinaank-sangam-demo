@@ -1,0 +1,25 @@
+{
+  "ui": {
+    "languageTitle": "हिन्दी",
+    "belowLang": "आरम्भ हेतु भाषा, सम्बन्ध और ISD चुनें",
+    "nameA": "नाम (EN)",
+    "nameB": "नाम (EN)",
+    "nameHiA": "नाम (HI)",
+    "nameHiB": "नाम (HI)",
+    "mobile": "मोबाइल",
+    "relation": "सम्बन्ध",
+    "country": "देश / ISD",
+    "harmony": "हार्मोनी %",
+    "generate": "रिपोर्ट बनाएँ",
+    "download": "HTML डाउनलोड",
+    "restart": "रीस्टार्ट",
+    "nameRule": "सिर्फ़ A–Z, अपने आप UPPERCASE",
+    "mobileRule": "केवल अंक; ISD अनुसार लंबाई"
+  },
+  "relations": [
+    "पति-पत्नी",
+    "साझेदार",
+    "मित्र",
+    "डिफॉल्ट"
+  ]
+}
