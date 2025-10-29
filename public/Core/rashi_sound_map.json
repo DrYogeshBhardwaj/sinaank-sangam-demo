@@ -1,0 +1,209 @@
+{
+  "rules": {
+    "meta": {
+      "version": "1.0.0",
+      "author": "Sinaank (Dr. Yogesh Bhardwaj — Astro Scientist)",
+      "description": "Devanagari two-letter (phonetic) mapping for Name→Rashi→Lord in Sinaank Sangam. Use longest-prefix matching. Transliterate name to Hindi first."
+    },
+    "matching": {
+      "script": "Devanagari",
+      "strategy": "longest-prefix",
+      "notes": [
+        "1) Transliterate the input name to Hindi (Devanagari) based on pronunciation.",
+        "2) Extract the starting sound; attempt 2-letter (or 2-character) match first, then 1-letter.",
+        "3) Use this map to pick exactly one rashi; then fetch its single Vedic lord."
+      ]
+    },
+    "special_cases": [
+      {
+        "if_prefix": "हे|हो",
+        "rashi": "कर्क",
+        "why": "Specific to Cancer; generic 'ह' remains Mithun."
+      },
+      {
+        "if_prefix": "लो",
+        "rashi": "मेष",
+        "why": "Conflict resolution; assign 'लो' to Aries."
+      },
+      {
+        "if_prefix": "दी",
+        "rashi": "मीन",
+        "why": "Conflict resolution; long 'दी' mapped to Pisces."
+      },
+      {
+        "if_prefix": "डा|डो",
+        "rashi": "कर्क",
+        "why": "Specific retroflex DA for Cancer; generic 'ड' stays Mithun."
+      },
+      {
+        "if_prefix": "द",
+        "rashi": "कुंभ",
+        "why": "Generic 'द' mapped to Aquarius; Vṛṣabha retains other vowels."
+      }
+    ],
+    "lords": {
+      "मेष": "मंगल",
+      "वृषभ": "शुक्र",
+      "मिथुन": "बुध",
+      "कर्क": "चंद्र",
+      "सिंह": "सूर्य",
+      "कन्या": "बुध",
+      "तुला": "शुक्र",
+      "वृश्चिक": "मंगल",
+      "धनु": "बृहस्पति",
+      "मकर": "शनि",
+      "कुंभ": "शनि",
+      "मीन": "बृहस्पति"
+    }
+  },
+  "map": [
+    {
+      "rashi": "मेष",
+      "lord": "मंगल",
+      "prefixes": [
+        "च",
+        "चूं",
+        "चे",
+        "ला",
+        "ली",
+        "लू",
+        "ले",
+        "लो",
+        "आ"
+      ]
+    },
+    {
+      "rashi": "वृषभ",
+      "lord": "शुक्र",
+      "prefixes": [
+        "उ",
+        "ए",
+        "ई",
+        "औ",
+        "द",
+        "वो"
+      ]
+    },
+    {
+      "rashi": "मिथुन",
+      "lord": "बुध",
+      "prefixes": [
+        "के",
+        "को",
+        "क",
+        "घ",
+        "छ",
+        "ह",
+        "ड"
+      ]
+    },
+    {
+      "rashi": "कर्क",
+      "lord": "चंद्र",
+      "prefixes": [
+        "हे",
+        "हो",
+        "डा",
+        "ही",
+        "डो"
+      ]
+    },
+    {
+      "rashi": "सिंह",
+      "lord": "सूर्य",
+      "prefixes": [
+        "म",
+        "मे",
+        "मी",
+        "टे",
+        "टा",
+        "टी"
+      ]
+    },
+    {
+      "rashi": "कन्या",
+      "lord": "बुध",
+      "prefixes": [
+        "प",
+        "ष",
+        "ण",
+        "पे",
+        "पो"
+      ]
+    },
+    {
+      "rashi": "तुला",
+      "lord": "शुक्र",
+      "prefixes": [
+        "रे",
+        "रो",
+        "रा",
+        "ता",
+        "ते",
+        "तू"
+      ]
+    },
+    {
+      "rashi": "वृश्चिक",
+      "lord": "मंगल",
+      "prefixes": [
+        "ने",
+        "नी",
+        "नू",
+        "या",
+        "यी"
+      ]
+    },
+    {
+      "rashi": "धनु",
+      "lord": "बृहस्पति",
+      "prefixes": [
+        "धा",
+        "ये",
+        "यो",
+        "भी",
+        "भू",
+        "फा",
+        "ढा"
+      ]
+    },
+    {
+      "rashi": "मकर",
+      "lord": "शनि",
+      "prefixes": [
+        "जा",
+        "जी",
+        "खो",
+        "खू",
+        "ग",
+        "गी",
+        "भो"
+      ]
+    },
+    {
+      "rashi": "कुंभ",
+      "lord": "शनि",
+      "prefixes": [
+        "गे",
+        "गो",
+        "सा",
+        "सू",
+        "से",
+        "सो",
+        "द"
+      ]
+    },
+    {
+      "rashi": "मीन",
+      "lord": "बृहस्पति",
+      "prefixes": [
+        "दी",
+        "चा",
+        "ची",
+        "झ",
+        "दो",
+        "दू"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,78 @@
 <!DOCTYPE html>
-<html lang="en"><meta charset="utf-8">
-<title>Sinaank — Mobile Sangam Demo</title>
-<meta http-equiv="refresh" content="0; URL=./sangam_full_report.html" />
-<p>Redirecting to full demo… <a href="./sangam_full_report.html">Open report</a>.</p>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sinaank — Mobile Sangam (Generator)</title>
+  <style>
+    body{font-family:Arial,'Noto Sans Devanagari',sans-serif;line-height:1.6;max-width:1000px;margin:auto;padding:16px}
+    .card{background:#f7f7f7;border-radius:12px;padding:14px;margin:12px 0}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    label{font-weight:600}
+    input,select,button{padding:10px;border-radius:8px;border:1px solid #ddd;width:100%}
+    button{cursor:pointer}
+    pre{white-space:pre-wrap;word-break:break-word;background:#111;color:#eee;padding:12px;border-radius:8px}
+    .small{color:#666;font-size:12px}
+  </style>
+</head>
+<body>
+  <h2>🪔 SINAANK — Mobile Sangam (Generator)</h2>
+  <div class="small">Fill details → Generate → नीचे विस्तृत रिपोर्ट दिखेगी</div>
+
+  <div class="card">
+    <div class="grid">
+      <div>
+        <h3>व्यक्ति A</h3>
+        <label>नाम (EN)</label>
+        <input id="a_name_en" placeholder="RAMESH SHARMA" />
+        <label style="margin-top:6px;">नाम (HI, देवनागरी)</label>
+        <input id="a_name_hi" placeholder="रमेश शर्मा" />
+        <label style="margin-top:6px;">मोबाइल</label>
+        <input id="a_mobile" placeholder="9873348940" />
+        <label style="margin-top:6px;">Naamank (वैकल्पिक)</label>
+        <input id="a_naamank" placeholder="3" />
+      </div>
+      <div>
+        <h3>व्यक्ति B</h3>
+        <label>नाम (EN)</label>
+        <input id="b_name_en" placeholder="ANITA SHARMA" />
+        <label style="margin-top:6px;">नाम (HI, देवनागरी)</label>
+        <input id="b_name_hi" placeholder="अनीता शर्मा" />
+        <label style="margin-top:6px;">मोबाइल</label>
+        <input id="b_mobile" placeholder="6376826930" />
+        <label style="margin-top:6px;">Naamank (वैकल्पिक)</label>
+        <input id="b_naamank" placeholder="2" />
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div>
+        <label>Relation</label>
+        <select id="relation_hi">
+          <option>पति-पत्नी</option>
+          <option>साझेदार</option>
+          <option>मित्र</option>
+          <option>डिफॉल्ट</option>
+        </select>
+      </div>
+      <div>
+        <label>Harmony %</label>
+        <input id="harmony" type="number" min="40" max="100" value="78" />
+      </div>
+    </div>
+
+    <div style="margin-top:12px;display:flex;gap:10px;">
+      <button id="genBtn">Generate Report</button>
+      <button id="saveBtn" title="HTML फाइल रूप में सेव करें">Download HTML</button>
+    </div>
+  </div>
+
+  <div id="report" class="card" style="display:none"></div>
+
+  <div class="small" style="margin-top:12px;">
+    Footer: Dr. Yogesh Bhardwaj — Astro Scientist • www.sinaank.com • Decode Your Destiny Digitally.
+  </div>
+
+  <script src="./scripts/app.js"></script>
+</body>
 </html>

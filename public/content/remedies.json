@@ -1,0 +1,53 @@
+{
+  "version": "1.0.0",
+  "notes": {
+    "hi": [
+      "यह खंड केवल दिशा-आधारित डिजिटल उपाय है; 'भविष्यवाणी' शब्द का प्रयोग न करें।",
+      "ZIP Pack अंग्रेज़ी में रहेगा; रिपोर्ट किसी भी भाषा में हो सकती है।",
+      "यह सेक्शन हमेशा रिपोर्ट के अंत में जोड़ा जाए (Advice के बाद, Disclaimer से पहले)।"
+    ],
+    "en": [
+      "This section offers directional digital remedies; never use the word 'prediction'.",
+      "ZIP Pack remains in English; the report can be in any language.",
+      "Always append this section near the end of the report (after Advice, before Disclaimer)."
+    ]
+  },
+  "simple": {
+    "hi": [
+      "रोज़ 10–12 मिनट श्वास-जागरूकता (inhale 4, hold 4, exhale 6).",
+      "सप्ताह में 1 दिन ‘नो-स्क्रीन’ का 60-मिनट स्लॉट तय करें।",
+      "कॉल/मीटिंग से पहले 30-सेकंड का मौन विराम—विचार, भाव, उद्देश्य पर ध्यान।",
+      "काम की शुरुआत दिन के सबसे कठिन कार्य से करें; छोटे चरणों में बाँटें।",
+      "रंग-उपयोग: दिन में हल्के व सुकूनदेह रंग; रात में मद्धिम स्क्रीन-लाइट।",
+      "सप्ताहांत में 20–30 मिनट प्रकृति-समय (वॉक/धूप/हरा क्षेत्र)."
+    ],
+    "en": [
+      "Practice 10–12 minutes of breath awareness daily (inhale 4, hold 4, exhale 6).",
+      "Schedule a 60-minute ‘no-screen’ slot once a week.",
+      "Take a 30-second silent pause before calls/meetings—focus on thought, feeling, intent.",
+      "Start the day with the hardest task; break it into small steps.",
+      "Color use: calm, light tones in day; lower screen brightness at night.",
+      "Spend 20–30 minutes in nature on weekends (walk/sun/green patch)."
+    ]
+  },
+  "digital": {
+    "hi": {
+      "headline": "Sinaank Digital Remedies — आपकी ऊर्जा का सक्रियकरण",
+      "bullets": [
+        "✨ *Diamond Kundli (₹551)* — यह मात्र रिपोर्ट नहीं, एक डिजिटल क्रांति है: आपके Mobank, Yogank और Naamank की तरंगों का समन्वित विश्लेषण, जिससे दिशा-निर्णय स्पष्ट और सुव्यवस्थित होते हैं।",
+        "📦 *Sinaank Digital Remedies ZIP* — मोबाइल-आधारित ऊर्जा-संग्रह: चयनित वॉलपेपर, रिंगटोन/टोन, संक्षिप्त एफ़र्मेशन और एक सरल उपयोग-गाइड—ताकि हर नोटिफ़िकेशन और स्क्रीन आपके पक्ष में काम करे।",
+        "🪄 *Daily Digital Ritual* — सुबह स्क्रीन अनलॉक पर एफ़र्मेशन पढ़ें, दिन में 1 बार Energy Tone चलाएँ, और शाम को वॉलपेपर पर 30-सेकंड दृष्टि-एकाग्रता—यह आपकी ‘डिजिटल साधना’ है।"
+      ],
+      "cta": "यदि अधिक लाभ चाहते हैं तो आज ही *Diamond Kundli* डाउनलोड करें या अपना *Sinaank Digital Remedies ZIP* सक्रिय करें—यह केवल परिवर्तन नहीं, आपके जीवन-प्रवाह में एक नई डिजिटल दिशा का शुभारंभ है।"
+    },
+    "en": {
+      "headline": "Sinaank Digital Remedies — Activate Your Energy",
+      "bullets": [
+        "✨ *Diamond Kundli (₹551)* — not just a report but a digital revolution: a synchronized analysis of your Mobank, Yogank and Naamank, bringing clarity and order to your decisions.",
+        "📦 *Sinaank Digital Remedies ZIP* — a mobile-first energy kit: curated wallpapers, ringtones/tones, concise affirmations and a simple usage guide—so every screen and notification works in your favor.",
+        "🪄 *Daily Digital Ritual* — read the affirmation on first unlock, play one Energy Tone during the day, and do a 30-second focus on your wallpaper in the evening—this is your ‘digital sadhana’."
+      ],
+      "cta": "If you seek amplified results, download *Diamond Kundli* or activate your *Sinaank Digital Remedies ZIP* today—this is not just change; it’s the auspicious start of a new digital direction."
+    }
+  }
+}

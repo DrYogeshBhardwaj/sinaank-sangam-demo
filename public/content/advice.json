@@ -1,0 +1,121 @@
+{
+  "mobank": [
+    {
+      "mobank": 1,
+      "advice": {
+        "small": {
+          "hi": "अगले 7 दिनों तक दिन की शुरुआत 1 कठिन कार्य से करें; निर्णय से पहले 2 विकल्प लिखकर 30 सेकंड का मौन विराम लें।",
+          "en": "For the next 7 days, start with one hard task; before deciding, list 2 options and pause for 30 seconds."
+        },
+        "big": {
+          "hi": "आने वाले 6 सप्ताह ‘नई शुरुआत’ पर केंद्रित रखें—हर हफ़्ते एक ठोस माइलस्टोन पूरा करें और प्रगति-डैशबोर्ड अपडेट करें।",
+          "en": "For the next 6 weeks, focus on ‘new starts’—finish one concrete milestone each week and update a progress dashboard."
+        }
+      }
+    },
+    {
+      "mobank": 2,
+      "advice": {
+        "small": {
+          "hi": "रोज़ एक ही समय पर काम शुरू करें; भावनाओं के साथ तथ्यों की 3-बिंदु सूची बनाकर निर्णय लें।",
+          "en": "Begin work at the same time daily; decide using a 3-point list blending facts and feelings."
+        },
+        "big": {
+          "hi": "6 सप्ताह का स्थिर रूटीन बनाएं—हर रविवार अगली सप्ताह-योजना और एक ‘परिवार-बैठक’ निश्चित करें।",
+          "en": "Build a 6-week stable routine—every Sunday, plan the next week and schedule one ‘family meeting’."
+        }
+      }
+    },
+    {
+      "mobank": 3,
+      "advice": {
+        "small": {
+          "hi": "आज एक विचार को 3-स्टेप योजना में बदलें; प्रस्तुति से पहले 3-स्लाइड ड्राफ्ट पर रिहर्सल करें।",
+          "en": "Turn one idea into a 3-step plan today; rehearse on a 3-slide draft before presenting."
+        },
+        "big": {
+          "hi": "6 सप्ताह तक ‘विचार → क्रिया’ अभ्यास—हर सप्ताह एक आइडिया को क्रियान्वयन तक ले जाएँ और सीखी बात लिखें।",
+          "en": "Practice ‘idea → action’ for 6 weeks—take one idea to execution weekly and journal learnings."
+        }
+      }
+    },
+    {
+      "mobank": 4,
+      "advice": {
+        "small": {
+          "hi": "आज लंबित कार्यों की सूची साफ़ करें; हर 90 मिनट पर 2-मिनट स्ट्रेचिंग रखें।",
+          "en": "Clear your backlog today; add a 2-minute stretch every 90 minutes."
+        },
+        "big": {
+          "hi": "6 सप्ताह ‘क्वालिटी-फ़र्स्ट’—साप्ताहिक गुणवत्ता-ऑडिट और प्रक्रिया-चेकलिस्ट से स्थिरता बनाएं।",
+          "en": "Adopt ‘quality-first’ for 6 weeks—use a weekly quality audit and process checklists to build stability."
+        }
+      }
+    },
+    {
+      "mobank": 5,
+      "advice": {
+        "small": {
+          "hi": "भावनात्मक प्रतिक्रिया से पहले 10 गहरी साँसें लें; सार्वजनिक वादों को न्यूनतम रखें।",
+          "en": "Take 10 deep breaths before emotional replies; keep public promises minimal."
+        },
+        "big": {
+          "hi": "6 सप्ताह ‘रचनात्मक अनुशासन’—ब्रेनस्टॉर्म के बाद एक निर्णायक सूची, और साझेदारी में स्पष्ट भूमिकाएँ।",
+          "en": "Practice ‘creative discipline’ for 6 weeks—after brainstorming, keep one decisive list and define clear roles."
+        }
+      }
+    },
+    {
+      "mobank": 6,
+      "advice": {
+        "small": {
+          "hi": "आज 3 ‘मस्ट-डू’ तय करें; एक व्यक्ति की मदद समयबद्ध ढंग से करें; शाम 15 मिनट धीमी वॉक।",
+          "en": "Set 3 must-dos today; help one person with a time limit; take a 15-minute evening walk."
+        },
+        "big": {
+          "hi": "6 सप्ताह ‘सहयोग-संतुलन’—देने से पहले सीमाएँ तय करें; मेंटॉर के साथ साप्ताहिक 10-मिन चेक-इन।",
+          "en": "Practice ‘collaboration balance’ for 6 weeks—set limits before over-giving; take a 10-min weekly mentor check-in."
+        }
+      }
+    },
+    {
+      "mobank": 7,
+      "advice": {
+        "small": {
+          "hi": "समस्या को ‘कारण–डेटा–निर्णय’ में बाँटें; स्वतंत्र कार्य के लिए 45-मिन टाइम-बॉक्स रखें।",
+          "en": "Split problems into cause–data–decision; time-box 45 minutes for independent work."
+        },
+        "big": {
+          "hi": "6 सप्ताह ‘दीर्घ-सीख’—महीना-वार कौशल लक्ष्य तय करें और प्रगति को हर सप्ताह ट्रैक करें।",
+          "en": "Adopt ‘long learning’ for 6 weeks—set monthly skill goals and track progress weekly."
+        }
+      }
+    },
+    {
+      "mobank": 8,
+      "advice": {
+        "small": {
+          "hi": "निर्णय से पहले 3 जोखिम और 3 अवसर लिखें; दिन के अंत में 5 मिनट समीक्षा।",
+          "en": "List 3 risks and 3 opportunities before decisions; do a 5-minute end-of-day review."
+        },
+        "big": {
+          "hi": "6 सप्ताह ‘नेटवर्क + विविधीकरण’—हफ़्ते में 2 नए संपर्क और निवेश में संतुलन।",
+          "en": "Focus on ‘network + diversification’ for 6 weeks—add two new contacts weekly and balance investments."
+        }
+      }
+    },
+    {
+      "mobank": 9,
+      "advice": {
+        "small": {
+          "hi": "आज अपनी प्रस्तुति में 1 कहानी + 1 आँकड़ा शामिल करें; टीम को जिम्मेदारियाँ बाँटें।",
+          "en": "Add one story + one data point to your presentation today; delegate responsibilities to the team."
+        },
+        "big": {
+          "hi": "6 सप्ताह ‘दृष्टि से धरातल तक’—बड़ी तस्वीर को माइलस्टोन्स में बदलकर साप्ताहिक प्रगति सुनिश्चित करें।",
+          "en": "For 6 weeks, move ‘vision to ground’—turn the big picture into milestones and ensure weekly progress."
+        }
+      }
+    }
+  ]
+}

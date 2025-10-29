@@ -1,0 +1,481 @@
+{
+  "mobank": [
+    {
+      "mobank": 1,
+      "sections": {
+        "Work": {
+          "hi": [
+            "नई शुरुआतों को छोटे-छोटे चरणों में बाँटें",
+            "दिन की पहली घण्टे में सबसे कठिन कार्य करें",
+            "निर्णय से पहले 2 विकल्पों का त्वरित तुलनात्मक नोट बनाएं"
+          ],
+          "en": [
+            "Break new starts into small steps",
+            "Tackle the hardest task in the first hour",
+            "Before deciding, compare 2 options with a quick note"
+          ]
+        },
+        "Relations": {
+          "hi": [
+            "अपनी बात कहने से पहले सामने वाले का सार दोहराएँ",
+            "भावना तीव्र हो तो 30-सेकंड का पॉज़ लें",
+            "साप्ताहिक एक कॉल केवल ‘हालचाल’ के लिए"
+          ],
+          "en": [
+            "Mirror the other person’s point before yours",
+            "If emotions rise, take a 30-second pause",
+            "Schedule one weekly check-in call"
+          ]
+        },
+        "Finance": {
+          "hi": [
+            "छोटा अनिवार्य मासिक निवेश (SIP) शुरू करें",
+            "अनायास ख़र्चों की सूची रखें और काटें",
+            "कैशफ़्लो ट्रैकर में साप्ताहिक अपडेट"
+          ],
+          "en": [
+            "Start a small mandatory monthly SIP",
+            "List and prune impulse spends",
+            "Update a simple cashflow tracker weekly"
+          ]
+        },
+        "Wellbeing": {
+          "hi": [
+            "सुबह 5-मिनट सूर्य-नमस्कार/वॉक",
+            "कॅफीन 2 बजे के बाद सीमित करें",
+            "रोज़ 10-मिनट श्वास-जागरूकता"
+          ],
+          "en": [
+            "5-minute morning sun salutations/walk",
+            "Limit caffeine after 2 PM",
+            "10 minutes daily breath awareness"
+          ]
+        }
+      }
+    },
+    {
+      "mobank": 2,
+      "sections": {
+        "Work": {
+          "hi": [
+            "रूटीन बनाकर उसी पर टिके रहें",
+            "डेली-स्टैंडअप में ‘किया/करना/अटकाव’ तीन लाइनें",
+            "निर्णय में भाव और तथ्य दोनों शामिल करें"
+          ],
+          "en": [
+            "Build a routine and stick to it",
+            "Daily stand-up: done/doing/blockers in 3 lines",
+            "Include both feelings and facts in decisions"
+          ]
+        },
+        "Relations": {
+          "hi": [
+            "परिवार के साथ भोजन-साझा की आदत",
+            "सीमाएँ विनम्र पर स्पष्ट रखें",
+            "धन्यवाद संदेश/नोट सप्ताह में एक बार"
+          ],
+          "en": [
+            "Share a daily meal with family",
+            "Keep boundaries polite yet clear",
+            "Send a weekly thank-you note/message"
+          ]
+        },
+        "Finance": {
+          "hi": [
+            "बचत का लक्ष्य तय कर ऑटो-ट्रांसफ़र ऑन करें",
+            "बीमा/आपातकालीन फंड की वार्षिक समीक्षा",
+            "खरीद से पहले 24-घंटे का नियम"
+          ],
+          "en": [
+            "Set a savings goal and auto-transfer",
+            "Annual review of insurance/emergency fund",
+            "24-hour rule before non-essential buys"
+          ]
+        },
+        "Wellbeing": {
+          "hi": [
+            "नींद का स्थिर समय; 7–8 घण्टे",
+            "मीठा/नमक सप्ताह में 2 दिन कम करें",
+            "संध्या में 15-मिन धीमी वॉक"
+          ],
+          "en": [
+            "Fixed sleep schedule (7–8 hrs)",
+            "Cut sugar/salt two days a week",
+            "15-minute evening slow walk"
+          ]
+        }
+      }
+    },
+    {
+      "mobank": 3,
+      "sections": {
+        "Work": {
+          "hi": [
+            "सोच-विचार को क्रियान्वयन सूची में बदलें",
+            "प्रस्तुति से पहले 3-स्लाइड ड्राफ्ट बनाकर रिहर्सल करें",
+            "मल्टीटास्किंग घटाकर टाइम-ब्लॉक्स रखें"
+          ],
+          "en": [
+            "Turn ideas into an execution list",
+            "Make a 3-slide draft and rehearse",
+            "Reduce multitasking; use time blocks"
+          ]
+        },
+        "Relations": {
+          "hi": [
+            "सुनते समय बीच में न टोकें; अंत में सार बताएं",
+            "रचनात्मक तारीफ़ दें (किस चीज़ की, क्यों)",
+            "दोस्त/साथी के प्रोजेक्ट में समयानुसार मदद"
+          ],
+          "en": [
+            "Don’t interrupt; summarize at the end",
+            "Give concrete praise (what and why)",
+            "Offer time-bound help on a friend’s project"
+          ]
+        },
+        "Finance": {
+          "hi": [
+            "आय के 10% को सीख/उपकरण में निवेश",
+            "सदस्यता सेवाओं की त्रैमासिक समीक्षा",
+            "उधारी देने पर स्पष्ट शर्तें लिखित रखें"
+          ],
+          "en": [
+            "Invest 10% income in learning/tools",
+            "Quarterly review of subscriptions",
+            "Put lending terms in writing"
+          ]
+        },
+        "Wellbeing": {
+          "hi": [
+            "दैनिक 15-मिन रचनात्मक शौक",
+            "स्क्रीन-ब्रेक: 50/10 नियम",
+            "सप्ताह में 1 दिन सोशल-डिटॉक्स"
+          ],
+          "en": [
+            "15 minutes of a creative hobby daily",
+            "Screen breaks with 50/10 rule",
+            "One social detox day per week"
+          ]
+        }
+      }
+    },
+    {
+      "mobank": 4,
+      "sections": {
+        "Work": {
+          "hi": [
+            "प्रोजेक्ट चेकलिस्ट और वर्ज़निंग अनुशासन",
+            "हर सप्ताह एक ‘क्वालिटी ऑडिट’ स्लॉट",
+            "पीछे छूटे कार्यों की ‘क्लियर-टू-ज़ीरो’ नीति"
+          ],
+          "en": [
+            "Project checklists and versioning discipline",
+            "Weekly quality-audit slot",
+            "Clear-to-zero policy for backlogs"
+          ]
+        },
+        "Relations": {
+          "hi": [
+            "कठोरता से बचें; स्वर नरम रखें",
+            "निर्णय समझाने के लिए कारण साझा करें",
+            "परिवार-समय को कैलेंडर में लॉक करें"
+          ],
+          "en": [
+            "Avoid rigidity; soften tone",
+            "Share reasons behind decisions",
+            "Lock family time on the calendar"
+          ]
+        },
+        "Finance": {
+          "hi": [
+            "खर्च श्रेणियाँ तय कर लिमिट सेट करें",
+            "त्रैमासिक नेट-वर्थ समीक्षा",
+            "लंबी वारंटी/AMC पर लागत-लाभ विश्लेषण"
+          ],
+          "en": [
+            "Set category limits for spends",
+            "Quarterly net-worth review",
+            "Cost-benefit for extended warranty/AMCs"
+          ]
+        },
+        "Wellbeing": {
+          "hi": [
+            "दिन में 2 बार स्ट्रेचिंग रूटीन",
+            "हर 90 मिनट पर पानी अलार्म",
+            "सप्ताहांत में प्रकृति-समय"
+          ],
+          "en": [
+            "Twice-daily stretching routine",
+            "Water reminders every 90 minutes",
+            "Weekend time in nature"
+          ]
+        }
+      }
+    },
+    {
+      "mobank": 5,
+      "sections": {
+        "Work": {
+          "hi": [
+            "ब्रेनस्टॉर्म के बाद 1 निर्णायक सूची बनाएं",
+            "सार्वजनिक वादों को सीमित रखें",
+            "साझेदारी स्पष्ट भूमिकाओं के साथ करें"
+          ],
+          "en": [
+            "After brainstorming, make one decisive list",
+            "Limit public promises",
+            "Collaborate with clear roles"
+          ]
+        },
+        "Relations": {
+          "hi": [
+            "भावनात्मक उतार-चढ़ाव में प्रतिक्रिया विलंबित करें",
+            "खुशी/उपलब्धियों को साथ मनाएँ",
+            "अनसुने विषय पर धैर्य से बात खोलें"
+          ],
+          "en": [
+            "Delay reactions during mood swings",
+            "Celebrate wins together",
+            "Open tough topics patiently"
+          ]
+        },
+        "Finance": {
+          "hi": [
+            "लक्ष्य-आधारित फंड्स: शिक्षा/यात्रा/घर",
+            "नक़दी बनाम कार्ड खर्च अनुपात तय करें",
+            "जोखिम-क्षमता के अनुसार निवेश"
+          ],
+          "en": [
+            "Goal-based funds: education/travel/home",
+            "Set cash vs card spend ratio",
+            "Invest by risk capacity"
+          ]
+        },
+        "Wellbeing": {
+          "hi": [
+            "उत्साह को नींद/आहार अनुशासन से संतुलित करें",
+            "डायरी में मूड-ट्रैकर",
+            "संगीत/नृत्य जैसे ‘जॉय-रूटीन’"
+          ],
+          "en": [
+            "Balance enthusiasm with sleep/diet",
+            "Track mood in a diary",
+            "Add joy routines like music/dance"
+          ]
+        }
+      }
+    },
+    {
+      "mobank": 6,
+      "sections": {
+        "Work": {
+          "hi": [
+            "डेली 3-टास्क ‘मस्ट-डू’ सूची",
+            "सहकर्मियों की सहायता पहले से प्लान करें",
+            "मेन्टॉर/सीनियर से साप्ताहिक 10-मिन गाइडेंस"
+          ],
+          "en": [
+            "Daily 3-task must-do list",
+            "Schedule help for teammates",
+            "Take a 10-min weekly mentor check-in"
+          ]
+        },
+        "Relations": {
+          "hi": [
+            "अतिरिक्त देने से पहले ‘स्व-सीमा’ तय करें",
+            "परिवार के साथ वित्त/समय के नियम स्पष्ट",
+            "सहानुभूति के साथ ‘ना’ कहना सीखें"
+          ],
+          "en": [
+            "Set self-limits before over-giving",
+            "Clarify rules for time/finance with family",
+            "Say no with empathy"
+          ]
+        },
+        "Finance": {
+          "hi": [
+            "खर्च-ट्रैकर में परिवार श्रेणी अलग रखें",
+            "समूह-खर्च के बाद त्वरित सेटलमेंट",
+            "बीमा/कर-लाभ का पूरा उपयोग"
+          ],
+          "en": [
+            "Separate family category in expense tracker",
+            "Quickly settle group expenses",
+            "Maximize insurance/tax benefits"
+          ]
+        },
+        "Wellbeing": {
+          "hi": [
+            "साप्ताहिक एक ‘केवल-अपने-लिए’ स्लॉट",
+            "हल्का योग/पिलेट्स 20 मिनट",
+            "शाम को मीठा कम"
+          ],
+          "en": [
+            "One weekly ‘only-for-me’ slot",
+            "20 minutes light yoga/pilates",
+            "Cut evening sugar"
+          ]
+        }
+      }
+    },
+    {
+      "mobank": 7,
+      "sections": {
+        "Work": {
+          "hi": [
+            "नई चीज़ सीखने के लिए महीना-वार लक्ष्य",
+            "समस्या को ‘कारण/डेटा/निर्णय’ में बाँटें",
+            "स्वतंत्र काम में टाइम-बॉक्सिंग"
+          ],
+          "en": [
+            "Monthly targets for new learning",
+            "Split problems into cause/data/decision",
+            "Time-box independent work"
+          ]
+        },
+        "Relations": {
+          "hi": [
+            "दूसरों को स्पेस दें; सूक्ष्म नियंत्रण से बचें",
+            "संवाद में तथ्य + संवेदना का संतुलन",
+            "एक साझा शौक साथ चुनें"
+          ],
+          "en": [
+            "Give others space; avoid micromanage",
+            "Balance facts with feelings",
+            "Pick a shared hobby together"
+          ]
+        },
+        "Finance": {
+          "hi": [
+            "दीर्घकालीन निवेश को प्राथमिकता",
+            "कर्ज़ प्रबंधन: स्नोबॉल/एवलांच पद्धति",
+            "वार्षिक लक्ष्य और त्रैमासिक ट्रैक"
+          ],
+          "en": [
+            "Prioritize long-term investments",
+            "Use snowball/avalanche for debt",
+            "Annual goals with quarterly tracking"
+          ]
+        },
+        "Wellbeing": {
+          "hi": [
+            "रोज़ 20-मिन वेट/रेज़िस्टेंस",
+            "दोपहर बाद छोटा पॉवर-नैप (10–15 मि.)",
+            "मन:शांति हेतु जर्नलिंग"
+          ],
+          "en": [
+            "20 minutes of resistance training",
+            "10–15 min power nap post-lunch",
+            "Journal for mental clarity"
+          ]
+        }
+      }
+    },
+    {
+      "mobank": 8,
+      "sections": {
+        "Work": {
+          "hi": [
+            "निर्णय से पहले 3 जोखिम और 3 अवसर लिखें",
+            "डेली-एंड रिव्यू: क्या सीखा/क्या सुधारा",
+            "नेटवर्किंग को कैलेंडर में स्लॉट दें"
+          ],
+          "en": [
+            "List 3 risks and 3 opportunities before deciding",
+            "End-of-day review: learned/improved",
+            "Calendar slots for networking"
+          ]
+        },
+        "Relations": {
+          "hi": [
+            "कठिन वार्ता में ‘मैं-संदेश’ उपयोग करें",
+            "परिवार के वित्त/भूमिका पर पारदर्शिता",
+            "बुज़ुर्गों के साथ साप्ताहिक समय"
+          ],
+          "en": [
+            "Use I-messages in tough talks",
+            "Be transparent on family finance/roles",
+            "Weekly time with elders"
+          ]
+        },
+        "Finance": {
+          "hi": [
+            "विविधीकरण: इक्विटी/डेट/गोल्ड संतुलन",
+            "महँगी वस्तु के लिए ‘कूलिंग-ऑफ़’ हफ़्ता",
+            "कर-योजना Q4 से पहले पूरी करें"
+          ],
+          "en": [
+            "Diversify: equity/debt/gold",
+            "Cooling-off week for big buys",
+            "Finish tax planning before Q4"
+          ]
+        },
+        "Wellbeing": {
+          "hi": [
+            "दैनिक 6–8 गिलास पानी; नमक नियंत्रित",
+            "सप्ताह में 3 दिन तेज़ वॉक/कार्डियो",
+            "रात को स्क्रीन-लाइट कम करें"
+          ],
+          "en": [
+            "6–8 glasses of water daily",
+            "Fast walk/cardio thrice a week",
+            "Reduce screen light at night"
+          ]
+        }
+      }
+    },
+    {
+      "mobank": 9,
+      "sections": {
+        "Work": {
+          "hi": [
+            "बड़ी तस्वीर से छोटे माइलस्टोन लिखें",
+            "टीम में जिम्मेदारी बाँटें, सबकुछ स्वयं न लें",
+            "प्रेज़ेंटेशन में 1 कहानी + 1 डेटा"
+          ],
+          "en": [
+            "Break big vision into milestones",
+            "Delegate responsibilities—don’t take all",
+            "Use 1 story + 1 data in presentations"
+          ]
+        },
+        "Relations": {
+          "hi": [
+            "भावुक अपील से पहले तथ्य बोलीए",
+            "समर्पण और स्वाभिमान का संतुलन",
+            "आभार जताने की खुली आदत"
+          ],
+          "en": [
+            "State facts before emotional appeal",
+            "Balance devotion with self-respect",
+            "Open habit of expressing gratitude"
+          ]
+        },
+        "Finance": {
+          "hi": [
+            "दान/सहायता बजट अलग रखें",
+            "दीर्घकालिक लक्ष्य-पत्र दीवार पर",
+            "अति-जोखिम से बचें—संरक्षित कोर बनाएँ"
+          ],
+          "en": [
+            "Keep a separate giving budget",
+            "Put long-term goals on the wall",
+            "Avoid over-risk; keep a safe core"
+          ]
+        },
+        "Wellbeing": {
+          "hi": [
+            "सुबह ध्यान 10–12 मिनट",
+            "तेल-से मालिश/स्ट्रेचिंग सप्ताह में 2 बार",
+            "रात को हल्का भोजन"
+          ],
+          "en": [
+            "10–12 minutes morning meditation",
+            "Oil-massage/stretch twice a week",
+            "Light dinner at night"
+          ]
+        }
+      }
+    }
+  ]
+}
