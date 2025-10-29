@@ -1,0 +1,10 @@
+{
+  "default": "IN",
+  "list": [
+    {
+      "code": "IN",
+      "name": "India",
+      "isd": "+91"
+    }
+  ]
+}
