@@ -1,0 +1,160 @@
+/* SINAANK Design System - Vanilla CSS */
+
+:root {
+  --bg-deep-space: #070814;
+  --bg-nebula: radial-gradient(circle at 50% 50%, #150f30 0%, #070814 100%);
+  --panel-glass: rgba(13, 15, 33, 0.65);
+  --panel-border: rgba(255, 255, 255, 0.08);
+  --panel-glow-accent: rgba(99, 102, 241, 0.15);
+  
+  /* Cosmic Color Palette */
+  --color-sun: #f59e0b;
+  --color-moon: #e2e8f0;
+  --color-mercury: #60a5fa;
+  --color-venus: #f472b6;
+  --color-mars: #ef4444;
+  --color-jupiter: #fbbf24;
+  --color-saturn: #a78bfa;
+  --color-uranus: #2dd4bf;
+  --color-neptune: #3b82f6;
+  --color-pluto: #9ca3af;
+  --color-node: #10b981; /* Rahu & Ketu */
+  --color-asc: #f43f5e;
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent-color: #6366f1;
+  --accent-hover: #4f46e5;
+  --font-family-sans: 'Outfit', 'Inter', -apple-system, sans-serif;
+  --font-family-mono: 'Orbitron', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-deep-space);
+  background-image: var(--bg-nebula);
+  color: var(--text-primary);
+  font-family: var(--font-family-sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Star field generator */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+  background-size: 550px 550px, 350px 350px, 250px 250px;
+  background-position: 0 0, 40px 60px, 130px 270px;
+  opacity: 0.25;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Glassmorphism Panel styles */
+.glass-panel {
+  background: var(--panel-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: all 0.3s ease;
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 40px 0 rgba(99, 102, 241, 0.08);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-family-mono);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Form elements */
+input, select, button {
+  font-family: var(--font-family-sans);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  border-radius: 8px;
+  padding: 10px 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+input:focus, select:focus {
+  border-color: var(--accent-color);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+}
+
+button {
+  cursor: pointer;
+  font-weight: 600;
+  background: var(--accent-color);
+  border: none;
+}
+
+button:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button.secondary {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+button.secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Animations */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 10px rgba(99, 102, 241, 0.2); }
+  50% { box-shadow: 0 0 25px rgba(99, 102, 241, 0.4); }
+  100% { box-shadow: 0 0 10px rgba(99, 102, 241, 0.2); }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "sinaank-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node server.js",
+    "test": "node test-backend-engine.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.1",
+    "@react-three/postprocessing": "^3.0.4",
+    "astronomy-engine": "^2.1.19",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "swisseph-wasm": "^0.0.5",
+    "three": "^0.185.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.3",
+    "vite": "^8.1.0"
+  }
+}
