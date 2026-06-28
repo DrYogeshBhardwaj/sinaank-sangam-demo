@@ -25,9 +25,7 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "swisseph-wasm": "^0.0.5",
-    "three": "^0.185.0"
-  },
-  "devDependencies": {
+    "three": "^0.185.0",
     "@vitejs/plugin-react": "^6.0.3",
     "vite": "^8.1.0"
   }
