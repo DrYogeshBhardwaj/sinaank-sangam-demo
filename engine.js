@@ -1,6 +1,5 @@
 import SwissEph from 'swisseph-wasm';
-import astronomy from 'astronomy-engine';
-const { SearchRiseSet, Body: AstroBody, Observer: AstroObserver, MakeTime, Equator, Illumination, SearchLunarApsis, NextLunarApsis } = astronomy;
+import { SearchRiseSet, Body as AstroBody, Observer as AstroObserver, MakeTime, Equator, Illumination, SearchLunarApsis, NextLunarApsis } from 'astronomy-engine';
 
 let swe = null;
 
