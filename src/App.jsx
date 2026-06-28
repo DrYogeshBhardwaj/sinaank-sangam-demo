@@ -218,10 +218,27 @@ export default function App() {
       {/* Header Bar */}
       <header className="main-header glass-panel">
         <div className="header-logo">
-          <span className="logo-symbol">🪐</span>
+          <img src="/Logo.png" alt="SINAANK Logo" className="logo-image" style={{ height: '48px', width: 'auto', filter: 'drop-shadow(0 0 8px rgba(99, 102, 241, 0.4))' }} />
           <div>
             <h1 style={{ textTransform: 'none' }}>{t.appTitle}</h1>
-            <p className="subtitle font-mono">{t.appSubtitle}</p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <p className="subtitle font-mono">{t.appSubtitle}</p>
+              {isSkyView && (
+                <span style={{
+                  background: 'rgba(245, 158, 11, 0.15)',
+                  color: '#fbbf24',
+                  border: '1px solid rgba(245, 158, 11, 0.4)',
+                  padding: '2px 8px',
+                  borderRadius: '12px',
+                  fontSize: '0.65rem',
+                  fontWeight: 'bold',
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase'
+                }}>
+                  Beta Preview
+                </span>
+              )}
+            </div>
           </div>
         </div>
 
